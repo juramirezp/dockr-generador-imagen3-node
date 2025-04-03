@@ -2,16 +2,18 @@ const express = require("express");
 const cors = require("cors");
 const helmet = require("helmet");
 const path = require("path");
+const fs = require("fs");
 const dotenv = require("dotenv");
-const { generateImage, saveImages } = require("./services/imageService");
 
-// Cargar variables de entorno
-dotenv.config();
+// Intentar cargar variables de entorno desde .env si existe
+if (fs.existsSync(".env")) {
+	dotenv.config();
+}
 
 // Verificar la clave API
 const API_KEY = process.env.GEMINI_API_KEY;
 if (!API_KEY) {
-	console.error("Error: No se encontró la clave API. Asegúrate de tener un archivo .env con GEMINI_API_KEY definido.");
+	console.error("Error: No se encontró la clave API. Por favor, define la variable de entorno GEMINI_API_KEY");
 	process.exit(1);
 }
 

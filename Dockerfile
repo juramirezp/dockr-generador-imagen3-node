@@ -18,6 +18,9 @@ COPY . .
 # Crear directorio para almacenar las imágenes generadas
 RUN mkdir -p public/images && chmod 777 public/images
 
+# Crear archivo .env vacío (se rellenará con las variables de entorno)
+RUN echo "GEMINI_API_KEY=\${GEMINI_API_KEY}" > .env
+
 # Exponer el puerto
 EXPOSE 3000
 
